@@ -51,19 +51,20 @@ const ThreeEqualBoxes = () => {
         <div className="p-4 h-full rounded-lg flex flex-col text-black justify-center items-center">
           <h2 className="text-2xl font-semibold text-black">Follow Us</h2>
           <div className="flex mt-2">
-            <a href="#linkedin" className="mr-2">
+            <a href="https://www.linkedin.com/in/Ligovis" className="mr-2">
               <FaLinkedin
                 className="h-7 w-7"
+               
                 style={{ color: "rgb(134, 114, 243)" }}
               />
             </a>
-            <a href="#twitter" className="mr-2">
+            <a href="https://www.instagram.com/ligovis/" className="mr-2">
               <FaXTwitter
                 className="h-7 w-7"
                 style={{ color: "rgb(134, 114, 243)" }}
               />
             </a>
-            <a href="#instagram" className="mr-2">
+            <a href="https://www.instagram.com/ligovis/" className="mr-2">
               <FaInstagram
                 className="h-7 w-7"
                 style={{ color: "rgb(134, 114, 243)" }}
