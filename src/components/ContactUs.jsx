@@ -2,8 +2,65 @@ import React from "react";
 import { FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import { MdMarkEmailRead } from "react-icons/md";
 import { IoMdMail } from "react-icons/io";
+import { useState } from "react";
+import sheetDbUrl from "../config";
 
 const ContactUs = () => {
+  const [name,setName]= useState("");
+const [email,setEmail] = useState("");
+const [phone,setPhone] = useState("");
+const [info,setInfo]  = useState("");
+
+const handleSubmit = async () => {
+  try {
+    const response = await fetch(sheetDbUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        data: [
+          {
+            'Name': name,
+            'Email': email,
+            'PhoneNo': phone,
+            'Message': info,
+          }
+        ]
+      })
+    });
+
+    const data = await response.json();
+    console.log(data); // Assuming you want to log the response data
+
+    // Reset state variables to empty after sending
+    setName("");
+    setEmail("");
+    setPhone("");
+    setInfo("");
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+
+const handleNameChange = (event) => {
+  setName(event.target.value);
+};
+
+const handleEmailChange = (event) => {
+  setEmail(event.target.value);
+};
+
+const handlePhoneChange = (event) => {
+  setPhone(event.target.value);
+};
+
+const handleInfoChange = (event) => {
+  setInfo(event.target.value);
+};
+
   return (
     <div
       id="contactus"
@@ -51,10 +108,16 @@ const ContactUs = () => {
               >
                 You can reach us anytime.
               </p>
+              <form onSubmit={(event)=>{
+                event.preventDefault();
+                handleSubmit();
+              }}>
               <div className="">
                 <input
-                  className="w-full bg-white p-2 rounded-md mb-2 border  focus:border-2"
+                  className="w-full bg-white p-2 rounded-md mb-2 border  focus:outline-none"
                   type="text"
+                  value={name}
+                  onChange={handleNameChange}
                   placeholder="Name"
                   style={{
                     fontSize: "16px",
@@ -79,6 +142,8 @@ const ContactUs = () => {
                     className="w-full bg-transparent focus:outline-none"
                     type="email"
                     placeholder="Email"
+                    value={email}
+                    onChange={handleEmailChange}
                     style={{
                       fontSize: "16px",
                       borderColor: "rgb(134, 114, 243)",
@@ -88,9 +153,11 @@ const ContactUs = () => {
                   />
                 </div>
                 <input
-                  className="w-full bg-white p-2 rounded-md mb-2 border focus:border-2"
+                  className="w-full bg-white p-2 rounded-md mb-2 border focus:outline-none"
                   type="tel"
                   placeholder="+91 Phone number"
+                  value={phone}
+                  onChange={handlePhoneChange}
                   style={{
                     fontSize: "16px",
                     borderColor: "rgb(134, 114, 243)",
@@ -100,9 +167,11 @@ const ContactUs = () => {
                 />
               </div>
               <textarea
-                className="w-full bg-white p-2 border rounded-md mb-2 focus:border-2"
+                className="w-full bg-white p-2 border rounded-md mb-2 focus:outline-none"
                 rows="4"
                 placeholder="How can we help?"
+                value={info}
+                onChange={handleInfoChange}
                 style={{
                   fontSize: "16px",
                   borderColor: "rgb(134, 114, 243)",
@@ -122,6 +191,7 @@ const ContactUs = () => {
                   Submit
                 </button>
               </div>
+              </form>
             </div>
           </div>
           <div className="sm:w-1/2 sm:pr-0 sm:pl-10 md:pl-10">
